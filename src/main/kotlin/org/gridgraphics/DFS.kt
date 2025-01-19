@@ -56,6 +56,7 @@ class DFS(val graph: AdjacencyList) {
             visited[id] = true
             // Just visited this node
             currentVisited.add(id)
+            currentVisitedDepts.add(currentDepth)
             currentDepth++
             depth = max(depth, currentDepth)
             graph[id].forEach { (d, v) ->

@@ -1,4 +1,4 @@
-package org.gridgraphics
+package org.gridgraphics.AoCInput
 
 object UphillGrids {
     val uphill1 = """

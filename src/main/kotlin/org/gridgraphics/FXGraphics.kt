@@ -16,8 +16,8 @@ import javafx.util.Duration
 class FXGraphics : Application() {
     companion object {
         var grid = Grid(0, 0)
-        var visitedNodes = mutableListOf<Tile>()
-        var nodeDepths = listOf<Int>()
+        var visitedNodes = listOf<Tile>()
+        var nodeDistances = listOf<Int>()
     }
 
     var animationKeyFrameTime = Duration.millis(10_000.0 / visitedNodes.size)
@@ -50,9 +50,9 @@ class FXGraphics : Application() {
     private fun animateVisitedNodes() {
         val timeline = Timeline()
         println("animationKeyFrameTime: $animationKeyFrameTime")
-        val maxDepth = nodeDepths.max().toDouble()
+        val maxDepth = nodeDistances.max().toDouble()
         visitedNodes.forEachIndexed { i, node ->
-            val color = getInterpolatedColor(nodeDepths[i].toDouble(), maxDepth)
+            val color = getInterpolatedColor(nodeDistances[i].toDouble(), maxDepth)
             val keyFrame = KeyFrame(
                 animationKeyFrameTime.multiply(i.toDouble()), squareDrawer(
                     node, color
