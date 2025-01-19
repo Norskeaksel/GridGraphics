@@ -30,6 +30,7 @@ class Grid(val width: Int, val height: Int) {
     fun xyInRange(x: Int, y: Int) = x in 0 until width && y in 0 until height
     fun xy2Id(x: Int, y: Int) = if (xyInRange(x, y)) x + y * width else null
     fun id2Node(id: Int) = if (id in 0 until size) nodes[id] else null
+    fun ids2Nodes(ids: List<Int>) = ids.mapNotNull { id2Node(it) }
     fun xy2Node(x: Int, y: Int) = if (xyInRange(x, y)) id2Node(xy2Id(x, y)!!) else null
     fun node2Id(t: Tile) = t.x + t.y * width
     fun getNodes(): List<Tile> = nodes.filterNotNull().filter { it.x != -1 }
@@ -90,6 +91,13 @@ class Grid(val width: Int, val height: Int) {
                 }
             }
         }
+    }
+
+    fun markCharAsWall(c: Char) {
+       nodes.indices.forEach { i ->
+              if (nodes[i]?.data == c)
+                    nodes[i] = null
+       }
     }
 
     fun print() {

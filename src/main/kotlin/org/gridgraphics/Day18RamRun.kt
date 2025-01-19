@@ -22,7 +22,7 @@ fun main(){
     val ans = bfs.distances[grid.xy2Id(gridSize - 1, gridSize - 1)!!].toInt()
     println(ans)
     FXGraphics.grid = grid
-    FXGraphics.visitedNodes = bfs.currentVisited.map { grid.id2Node(it)!! }
+    FXGraphics.visitedNodes = grid.ids2Nodes(bfs.currentVisited)
     FXGraphics.nodeDistances = bfs.currentVisitedDistances
     Application.launch(FXGraphics()::class.java)
 }

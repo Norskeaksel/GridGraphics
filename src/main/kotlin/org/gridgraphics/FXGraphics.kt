@@ -50,7 +50,7 @@ class FXGraphics : Application() {
     private fun animateVisitedNodes() {
         val timeline = Timeline()
         println("animationKeyFrameTime: $animationKeyFrameTime")
-        val maxDepth = nodeDistances.max().toDouble()
+        val maxDepth = nodeDistances.maxOrNull()?.toDouble() ?: 0.0
         visitedNodes.forEachIndexed { i, node ->
             val color = getInterpolatedColor(nodeDistances[i].toDouble(), maxDepth)
             val keyFrame = KeyFrame(
