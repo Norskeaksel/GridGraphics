@@ -1,0 +1,85 @@
+package org.gridgraphics
+
+data class Tile(val x: Int, val y: Int, var data: Any? = null)
+
+class Grid(val width: Int, val height: Int) {
+
+    constructor(stringGrid: List<String>) : this(stringGrid[0].length, stringGrid.size) {
+        stringGrid.forEachIndexed { y, line ->
+            line.forEachIndexed { x, c ->
+                val t = Tile(x, y, c)
+                addNode(t)
+            }
+        }
+    }
+
+
+    private val size = width * height
+    private val adjacencyList = adjacencyListInit(size)
+    val nodes = Array<Tile?>(size) { Tile(-1, -1) }
+
+    fun xyInRange(x: Int, y: Int) = x in 0 until width && y in 0 until height
+    fun xy2Id(x: Int, y: Int) = if (xyInRange(x, y)) x + y * width else null
+    fun id2Node(id: Int) = if (id in 0 until size) nodes[id] else null
+    fun xy2Node(x: Int, y: Int) = if (xyInRange(x, y)) id2Node(xy2Id(x, y)!!) else null
+    fun node2Id(t: Tile) = t.x + t.y * width
+    fun getNodes(): List<Tile> = nodes.filterNotNull().filter { it.x != -1 }
+    fun getEdges(t: Tile): List<Edge> = adjacencyList[node2Id(t)]
+    fun getAdjacencyList() = adjacencyList
+    fun trueSize() = nodes.filterNotNull().size
+
+    fun addNode(t: Tile) {
+        val id = node2Id(t)
+        nodes[id] = t
+    }
+
+    fun addEdge(t1: Tile, t2: Tile, weight: Double = 1.0) {
+        val u = node2Id(t1)
+        val v = node2Id(t2)
+        adjacencyList[u].add(Edge(weight, v))
+    }
+
+    fun connect(t1: Tile, t2: Tile, weight: Double = 1.0) {
+        addEdge(t1, t2, weight)
+        addEdge(t2, t1, weight)
+    }
+
+    // @formatter:off
+    fun getStraightNeighbours(t: Tile) =
+        listOfNotNull(
+            if(t.x > 0)        xy2Node(t.x - 1, t.y) else null,
+            if(t.x < width-1)  xy2Node(t.x + 1, t.y) else null,
+            if(t.y > 0)        xy2Node(t.x, t.y - 1) else null,
+            if(t.y < height-1) xy2Node(t.x, t.y + 1) else null
+        )
+
+    fun getDiagonalNeighbours(t: Tile) =
+        listOfNotNull(
+            if(t.x > 0 && t.y > 0)              xy2Node(t.x - 1, t.y - 1) else null,
+            if(t.x < width-1 && t.y > 0)        xy2Node(t.x + 1, t.y - 1) else null,
+            if(t.x > 0 && t.y < height-1)       xy2Node(t.x - 1, t.y + 1) else null,
+            if(t.x < width-1 && t.y < height-1) xy2Node(t.x + 1, t.y + 1) else null
+        )
+    fun getNeighboursOfId(id:Int) = adjacencyList[id].map { id2Node(it.second)!! }
+    // @formatter:on
+
+    fun getAllNeighbours(t: Tile) = getStraightNeighbours(t) + getDiagonalNeighbours(t)
+    fun connectGrid(getNeighbours: (t: Tile) -> List<Tile>) {
+        for (x in 0 until width) {
+            for (y in 0 until height) {
+                val neighbours = getNeighbours(xy2Node(x, y)!!)
+                neighbours.forEach {
+                    addEdge(xy2Node(x, y)!!, it)
+                }
+            }
+        }
+    }
+    fun print() {
+        nodes.forEachIndexed { id, t ->
+            if (id > 0 && id % width == 0)
+                println()
+            print(t?.data)
+        }
+        println()
+    }
+}
