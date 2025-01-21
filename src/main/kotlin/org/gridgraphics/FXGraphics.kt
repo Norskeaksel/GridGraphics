@@ -18,14 +18,15 @@ class FXGraphics : Application() {
         var grid = Grid(0, 0)
         var visitedNodes = listOf<Tile>()
         var nodeDistances = listOf<Int>()
+        var animationTimeOverride: Duration? = null
     }
 
-    var animationKeyFrameTime = Duration.millis(10_000.0 / visitedNodes.size)
+    var animationKeyFrameTime = animationTimeOverride ?: Duration.millis(10_000.0 / visitedNodes.size)
     val sceneWith = 1000.0
     val sceneHeight = 1000.0
     val canvas = Canvas(sceneWith, sceneHeight)
     val gc = canvas.graphicsContext2D
-    val xNodes = sceneWith / grid.width
+    val xNodes = sceneWith / (grid.width)
     val yNodes = sceneHeight / grid.height
     val minEdgeLength = xNodes.coerceAtMost(yNodes)
 

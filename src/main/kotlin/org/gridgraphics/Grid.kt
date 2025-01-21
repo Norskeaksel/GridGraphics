@@ -79,6 +79,7 @@ class Grid(val width: Int, val height: Int) {
         )
 
     fun getNeighboursOfId(id: Int) = adjacencyList[id].map { id2Node(it.second)!! }
+    fun getNeighboursOfNode(t: Tile) = getNeighboursOfId(node2Id(t))
 
     fun getAllNeighbours(t: Tile) = getStraightNeighbours(t) + getDiagonalNeighbours(t)
     fun connectGrid(getNeighbours: (t: Tile) -> List<Tile>) {

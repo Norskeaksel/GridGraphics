@@ -3,6 +3,7 @@ package org.gridgraphics
 import java.util.*
 
 class Dijkstra(private val graph: AdjacencyList) {
+    constructor(grid: Grid) : this(grid.getAdjacencyList())
     val distance = DoubleArray(graph.size) { Double.POSITIVE_INFINITY }
     private val parent = IntArray(graph.size) { -1 }
 
