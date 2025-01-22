@@ -5,17 +5,18 @@ class BFS (val graph: AdjacencyList) {
 
     val size = graph.size
     var visited = BooleanArray(size)
-    val distances = DoubleArray(size)
+    val distances = IntArray(size)
     var currentVisited = mutableListOf<Int>()
     var currentVisitedDistances = mutableListOf<Int>()
+    val parent = IntArray(graph.size) { -1 }
 
     fun bfsIterative(startIds: List<Int>) {
         currentVisited.clear()
-        distances.fill(-1.0)
+        distances.fill(-1)
         val queue = ArrayDeque<Int>()
         startIds.forEach {
             queue.add(it)
-            distances[it] = 0.0
+            distances[it] = 0
         }
         while (queue.isNotEmpty()) {
             val currentId = queue.first()
@@ -25,11 +26,12 @@ class BFS (val graph: AdjacencyList) {
             visited[currentId] = true
             currentVisited.add(currentId)
             val currentDistance = distances[currentId]
-            currentVisitedDistances.add(currentDistance.toInt())
+            currentVisitedDistances.add(currentDistance)
             graph[currentId].forEach { (d, v) ->
                 if(!visited[v]) {
                     queue.add(v)
-                    distances[v] = currentDistance + d
+                    parent[v] = currentId
+                    distances[v] = (currentDistance + d).toInt()
                 }
             }
         }
@@ -37,9 +39,9 @@ class BFS (val graph: AdjacencyList) {
 
     fun bfsRecursive(startIds: List<Int>) {
         currentVisited.clear()
-        distances.fill(-1.0)
+        distances.fill(-1)
         startIds.forEach {
-            distances[it] = 0.0
+            distances[it] = 0
         }
         DeepRecursiveFunction<ArrayDeque<Int>, Unit> { queue ->
             if(queue.isEmpty())
@@ -51,7 +53,7 @@ class BFS (val graph: AdjacencyList) {
             graph[id].forEach { (d, v) ->
                 if(!visited[v]) {
                     queue.add(v)
-                    distances[v] = distances[id] + d
+                    distances[v] = (distances[id] + d).toInt()
                 }
             }
             this.callRecursive(queue)

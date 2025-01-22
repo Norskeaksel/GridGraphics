@@ -1,5 +1,7 @@
 package org.gridgraphics
 
+import kotlin.math.abs
+
 data class Tile(val x: Int, val y: Int, var data: Any? = null)
 
 class Grid(val width: Int, val height: Int) {
@@ -55,6 +57,10 @@ class Grid(val width: Int, val height: Int) {
         adjacencyList[u].remove(Edge(weight, v))
     }
 
+    fun removeEdge(id1: Int, id2: Int, weight: Double = 1.0) {
+        adjacencyList[id1].remove(Edge(weight, id2))
+    }
+
     fun connect(t1: Tile, t2: Tile, weight: Double = 1.0) {
         addEdge(t1, t2, weight)
         addEdge(t2, t1, weight)
@@ -82,6 +88,12 @@ class Grid(val width: Int, val height: Int) {
     fun getNeighboursOfNode(t: Tile) = getNeighboursOfId(node2Id(t))
 
     fun getAllNeighbours(t: Tile) = getStraightNeighbours(t) + getDiagonalNeighbours(t)
+
+    fun removeCheatPath(path: List<Int>) {
+        val cheatPath = path.windowed(2).firstOrNull{(_,b) -> id2Node(b)!!.x > width / 2 }  ?: return
+        removeEdge(cheatPath.first(), cheatPath.last())
+    }
+
     fun connectGrid(getNeighbours: (t: Tile) -> List<Tile>) {
         for (x in 0 until width) {
             for (y in 0 until height) {
@@ -95,10 +107,10 @@ class Grid(val width: Int, val height: Int) {
     }
 
     fun markCharAsWall(c: Char) {
-       nodes.indices.forEach { i ->
-              if (nodes[i]?.data == c)
-                    nodes[i] = null
-       }
+        nodes.indices.forEach { i ->
+            if (nodes[i]?.data == c)
+                nodes[i] = null
+        }
     }
 
     fun print() {

@@ -5,21 +5,10 @@ import java.util.*
 class Dijkstra(private val graph: AdjacencyList) {
     constructor(grid: Grid) : this(grid.getAdjacencyList())
     val distance = DoubleArray(graph.size) { Double.POSITIVE_INFINITY }
-    private val parent = IntArray(graph.size) { -1 }
+    val parent = IntArray(graph.size) { -1 }
 
     private fun resetDistances() = distance.fill(Double.POSITIVE_INFINITY)
     private fun resetParents() = parent.fill(-1)
-
-    fun getPath(destination: Int): List<Int> {
-        val path = mutableListOf<Int>()
-        var current = destination
-        while (parent[current] != -1) {
-            path.add(current)
-            current = parent[current]
-        }
-        path.add(current)
-        return path.reversed()
-    }
 
     fun dijkstra(start: Int) {
         resetDistances()

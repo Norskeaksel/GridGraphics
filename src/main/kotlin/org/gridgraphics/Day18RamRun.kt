@@ -4,9 +4,9 @@ import javafx.application.Application
 import org.gridgraphics.AoCInput.CorruptingGrid
 
 fun main(){
-    val gridSize = 71
-    val input = CorruptingGrid.trueInput
-    val lineCount = 1024
+    val gridSize = 7
+    val input = CorruptingGrid.example
+    val lineCount = 12
     val grid = Grid(gridSize, gridSize)
     input.forEachIndexed { i, line ->
         if (i >= lineCount)
@@ -24,5 +24,6 @@ fun main(){
     FXGraphics.grid = grid
     FXGraphics.visitedNodes = grid.ids2Nodes(bfs.currentVisited)
     FXGraphics.nodeDistances = bfs.currentVisitedDistances
+    FXGraphics.finalPath = grid.ids2Nodes(getPath(grid.xy2Id(gridSize - 1, gridSize - 1)!!, bfs.parent))
     Application.launch(FXGraphics()::class.java)
 }

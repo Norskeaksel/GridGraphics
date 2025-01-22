@@ -8,9 +8,11 @@ import javafx.event.ActionEvent
 import javafx.scene.Group
 import javafx.scene.Scene
 import javafx.scene.canvas.Canvas
+import javafx.scene.input.KeyCode
 import javafx.scene.paint.Color
 import javafx.stage.Stage
 import javafx.util.Duration
+import kotlin.math.min
 
 
 class FXGraphics : Application() {
@@ -18,10 +20,12 @@ class FXGraphics : Application() {
         var grid = Grid(0, 0)
         var visitedNodes = listOf<Tile>()
         var nodeDistances = listOf<Int>()
-        var animationTimeOverride: Duration? = null
+        var finalPath = listOf<Tile>()
+        var animationTimeOverride: Double = 300.0
+        var closeOnEnd = false
     }
 
-    var animationKeyFrameTime = animationTimeOverride ?: Duration.millis(10_000.0 / visitedNodes.size)
+    var animationKeyFrameTime = Duration.millis(min(animationTimeOverride, 10_000.0 / visitedNodes.size))
     val sceneWith = 1000.0
     val sceneHeight = 1000.0
     val canvas = Canvas(sceneWith, sceneHeight)
@@ -40,7 +44,7 @@ class FXGraphics : Application() {
         root.children.add(canvas)
         primaryStage.scene = Scene(root)
         primaryStage.show()
-        animateVisitedNodes()
+        animateVisitedNodes(primaryStage)
     }
 
     private fun drawSquare(x: Int, y: Int, color: Color) {
@@ -48,7 +52,9 @@ class FXGraphics : Application() {
         gc.fillRect(x * minEdgeLength, y * minEdgeLength, minEdgeLength - 1, minEdgeLength - 1)
     }
 
-    private fun animateVisitedNodes() {
+    private var isPaused = false
+    private fun animateVisitedNodes(stage: Stage) {
+        val scene = stage.scene
         val timeline = Timeline()
         println("animationKeyFrameTime: $animationKeyFrameTime")
         val maxDepth = nodeDistances.maxOrNull()?.toDouble() ?: 0.0
@@ -61,10 +67,41 @@ class FXGraphics : Application() {
             )
             timeline.keyFrames.add(keyFrame)
         }
+        finalPath.forEachIndexed { i, node ->
+            val keyFrame = KeyFrame(
+                animationKeyFrameTime.multiply(1.05 * (i.toDouble() + visitedNodes.size)), squareDrawer(
+                    node, Color.GREEN
+                )
+            )
+            timeline.keyFrames.add(keyFrame)
+        }
+        timeline.setOnFinished {
+            if (closeOnEnd) {
+                stage.close()
+            }
+        }
         val pause = PauseTransition(Duration.seconds(.5))
         pause.setOnFinished { timeline.play() }
         pause.play()
-        //timeline.play()
+        scene.setOnKeyPressed { event ->
+            if (event.code == KeyCode.SPACE) {
+                toggleAnimation(timeline)
+            }
+        }
+
+        scene.setOnMouseClicked {
+            toggleAnimation(timeline) // Pause/Resume on mouse click or space
+        }
+    }
+
+    private fun toggleAnimation(timeline: Timeline) {
+        if (isPaused) {
+            timeline.play()
+            isPaused = false
+        } else {
+            timeline.pause()
+            isPaused = true
+        }
     }
 
     private fun squareDrawer(node: Tile, color: Color): (ActionEvent) -> Unit {
@@ -72,7 +109,7 @@ class FXGraphics : Application() {
     }
 
 
-    fun getInterpolatedColor(value: Double, max: Double, min: Double = 0.0): Color {
+    private fun getInterpolatedColor(value: Double, max: Double, min: Double = 0.0): Color {
         if (value !in min..max) {
             error("Value $value is not in range $min..$max")
         }
