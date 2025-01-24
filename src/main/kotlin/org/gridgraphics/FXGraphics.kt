@@ -18,9 +18,9 @@ import kotlin.math.min
 class FXGraphics : Application() {
     companion object {
         var grid = Grid(0, 0)
-        var visitedNodes = listOf<Tile>()
+        var visitedNodes = listOf<Int>()
         var nodeDistances = listOf<Int>()
-        var finalPath = listOf<Tile>()
+        var finalPath = listOf<Int>()
         var animationTimeOverride: Double = 300.0
         var closeOnEnd = false
     }
@@ -58,19 +58,19 @@ class FXGraphics : Application() {
         val timeline = Timeline()
         println("animationKeyFrameTime: $animationKeyFrameTime")
         val maxDepth = nodeDistances.maxOrNull()?.toDouble() ?: 0.0
-        visitedNodes.forEachIndexed { i, node ->
+        visitedNodes.forEachIndexed { i, nodeId ->
             val color = getInterpolatedColor(nodeDistances[i].toDouble(), maxDepth)
             val keyFrame = KeyFrame(
                 animationKeyFrameTime.multiply(i.toDouble()), squareDrawer(
-                    node, color
+                    nodeId, color
                 )
             )
             timeline.keyFrames.add(keyFrame)
         }
-        finalPath.forEachIndexed { i, node ->
+        finalPath.forEachIndexed { i, nodeId ->
             val keyFrame = KeyFrame(
                 animationKeyFrameTime.multiply(1.05 * (i.toDouble() + visitedNodes.size)), squareDrawer(
-                    node, Color.GREEN
+                    nodeId, Color.GREEN
                 )
             )
             timeline.keyFrames.add(keyFrame)
@@ -104,7 +104,8 @@ class FXGraphics : Application() {
         }
     }
 
-    private fun squareDrawer(node: Tile, color: Color): (ActionEvent) -> Unit {
+    private fun squareDrawer(nodeId: Int, color: Color): (ActionEvent) -> Unit {
+        val node = grid.id2Node(nodeId)!!
         return { drawSquare(node.x, node.y, color) }
     }
 

@@ -13,6 +13,7 @@ class DFS(val graph: AdjacencyList) {
     var depths = IntArray(size) { Int.MAX_VALUE }
     private var currentVisited = mutableListOf<Int>()
     private var currentVisitedDepts = mutableListOf<Int>()
+    val parent = IntArray(graph.size) { -1 }
 
     fun dfsSimple(startId: Int, depth: Int = 0) {
         if (visited[startId])
@@ -22,6 +23,7 @@ class DFS(val graph: AdjacencyList) {
         currentVisitedDepts.add(depth)
         depths[startId] = min(depths[startId], depth)
         graph[startId].forEach { (_, v) ->
+            parent[v] = startId
             dfsSimple(v, depth + 1)
         }
     }
@@ -40,6 +42,7 @@ class DFS(val graph: AdjacencyList) {
             currentVisited.add(currentId)
             graph[currentId].forEach { (d, v) ->
                 if (!visited[v]) {
+                    parent[v] = startId
                     stack.add(v)
                 }
             }
@@ -60,6 +63,7 @@ class DFS(val graph: AdjacencyList) {
             currentDepth++
             depth = max(depth, currentDepth)
             graph[id].forEach { (d, v) ->
+                parent[v] = id
                 this.callRecursive(v)
             }
             //Done with this node. Backtracking to previous one.

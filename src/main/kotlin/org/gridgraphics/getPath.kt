@@ -1,12 +1,14 @@
 package org.gridgraphics
 
-fun getPath(destination: Int, parent: IntArray): List<Int> {
+fun getPath(destination: Int?, parent: IntArray): List<Int> {
     val path = mutableListOf<Int>()
-    var current = destination
-    while (parent[current] != -1) {
+    destination?.let { dest ->
+        var current = dest
+        while (parent[current] != -1) {
+            path.add(current)
+            current = parent[current]
+        }
         path.add(current)
-        current = parent[current]
     }
-    path.add(current)
     return path.reversed()
 }

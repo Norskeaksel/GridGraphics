@@ -5,7 +5,7 @@ import org.gridgraphics.AoCInput.ShadowGrid
 
 var grid = Grid(0, 0)
 val fairTime = 84 // 84, 9412
-val cheatGoal = 29 // 20, 100
+val cheatGoal = 30 // 20, 100
 fun main() {
     val input = ShadowGrid.example
     val shadowGrid = input.map { it + it }
@@ -29,9 +29,9 @@ fun main() {
         grid.removeCheatPath(getPath(endId, bfs.parent))
     }
     println(c)
-    FXGraphics.visitedNodes = grid.ids2Nodes(bfs.currentVisited)
+    FXGraphics.visitedNodes = bfs.currentVisited
     FXGraphics.nodeDistances = bfs.currentVisitedDistances
-    FXGraphics.finalPath = grid.ids2Nodes(getPath(endId, bfs.parent))
+    FXGraphics.finalPath = getPath(endId, bfs.parent)
     Application.launch(FXGraphics()::class.java)
 }
 
