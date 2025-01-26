@@ -3,7 +3,6 @@ package org.gridgraphics
 import javafx.application.Application
 import org.gridgraphics.AoCInput.ShadowGrid
 
-
 fun main() {
     val fairTime = 9412 // 84, 9412
     val cheatGoal = 100 // 30, 100
