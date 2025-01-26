@@ -3,14 +3,21 @@ package org.gridgraphics
 import javafx.application.Application
 import org.gridgraphics.AoCInput.ShadowGrid
 
-var grid = Grid(0, 0)
-val fairTime = 9412 // 84, 9412
-val cheatGoal = 100 // 30, 100
+
 fun main() {
+    val fairTime = 9412 // 84, 9412
+    val cheatGoal = 100 // 30, 100
     val input = ShadowGrid.trueInput
     val shadowGrid = input.map { it + it }
-    grid = Grid(shadowGrid)
+    val grid = Grid(shadowGrid)
     grid.print()
+
+    fun getShadowNeighbours(t: Tile) = grid.getStraightNeighbours(t).mapNotNull {
+        if (it.data != '#') it
+        else if (t.x < grid.width / 2) grid.xy2Node(it.x + grid.width / 2, it.y)
+        else null
+    }
+
     grid.connectGrid(::getShadowNeighbours)
     FXGraphics.grid = grid
     val startId = grid.nodes.indexOfFirst { it?.data == 'S' }
@@ -34,9 +41,3 @@ fun main() {
     FXGraphics.finalPath = getPath(endId, bfs.parent)
     Application.launch(FXGraphics()::class.java)
 }
-
-fun getShadowNeighbours(t: Tile) = grid.getStraightNeighbours(t).map {
-    if (it.data != '#') it
-    else if (t.x < grid.width / 2) grid.xy2Node(it.x + grid.width / 2, it.y)
-    else null
-}.filterNotNull()
