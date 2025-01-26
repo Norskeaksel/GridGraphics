@@ -1,7 +1,5 @@
 package org.gridgraphics
 
-import kotlin.math.abs
-
 data class Tile(val x: Int, val y: Int, var data: Any? = null)
 
 class Grid(val width: Int, val height: Int) {

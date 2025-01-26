@@ -8,10 +8,8 @@ fun main(){
     val input = CorruptingGrid.trueInput
     val lineCount = 1024
     val grid = Grid(gridSize, gridSize)
-    input.forEachIndexed { i, line ->
-        if (i >= lineCount)
-            return@forEachIndexed
-
+    for((i, line) in input.withIndex()){
+        if(i >= lineCount) break
         val (x, y) = line.split(",").map { it.toInt() }
         val corruptId = grid.xy2Id(x, y)!!
         grid.nodes[corruptId] = null
