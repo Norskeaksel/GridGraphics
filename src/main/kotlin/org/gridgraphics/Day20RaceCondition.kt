@@ -4,10 +4,10 @@ import javafx.application.Application
 import org.gridgraphics.AoCInput.ShadowGrid
 
 var grid = Grid(0, 0)
-val fairTime = 84 // 84, 9412
-val cheatGoal = 30 // 20, 100
+val fairTime = 9412 // 84, 9412
+val cheatGoal = 100 // 30, 100
 fun main() {
-    val input = ShadowGrid.example
+    val input = ShadowGrid.trueInput
     val shadowGrid = input.map { it + it }
     grid = Grid(shadowGrid)
     grid.print()
@@ -17,7 +17,7 @@ fun main() {
     val endId = grid.nodes.indexOfLast { it?.data == 'E' }
 
     var timeSaved = fairTime
-    var c = 0
+    var c = -1
     var bfs = BFS(grid)
     while (timeSaved >= cheatGoal) {
         bfs = BFS(grid)
@@ -37,6 +37,6 @@ fun main() {
 
 fun getShadowNeighbours(t: Tile) = grid.getStraightNeighbours(t).map {
     if (it.data != '#') it
-    else if (it.x < grid.width / 2) grid.xy2Node(it.x + grid.width / 2, it.y)
+    else if (t.x < grid.width / 2) grid.xy2Node(it.x + grid.width / 2, it.y)
     else null
 }.filterNotNull()

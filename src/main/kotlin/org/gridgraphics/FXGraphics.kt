@@ -26,7 +26,7 @@ class FXGraphics : Application() {
     }
 
     var animationKeyFrameTime = Duration.millis(min(animationTimeOverride, 10_000.0 / visitedNodes.size))
-    val sceneWith = 1000.0
+    val sceneWith = 2000.0
     val sceneHeight = 1000.0
     val canvas = Canvas(sceneWith, sceneHeight)
     val gc = canvas.graphicsContext2D
