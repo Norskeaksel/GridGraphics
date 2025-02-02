@@ -1,5 +1,6 @@
 package org.gridgraphics
 
+import graphClasses.Grid
 import javafx.application.Application
 import org.gridgraphics.AoCInput.UphillGrids
 

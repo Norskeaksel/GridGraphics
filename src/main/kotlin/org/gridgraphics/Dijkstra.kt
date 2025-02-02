@@ -1,5 +1,6 @@
 package org.gridgraphics
 
+import graphClasses.Grid
 import java.util.*
 
 class Dijkstra(private val graph: AdjacencyList) {

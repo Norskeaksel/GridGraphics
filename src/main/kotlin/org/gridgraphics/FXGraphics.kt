@@ -1,5 +1,6 @@
 package org.gridgraphics
 
+import graphClasses.Grid
 import javafx.animation.KeyFrame
 import javafx.animation.PauseTransition
 import javafx.animation.Timeline

@@ -1,5 +1,6 @@
 package org.gridgraphics
 
+import graphClasses.Grid
 import kotlin.math.max
 import kotlin.math.min
 

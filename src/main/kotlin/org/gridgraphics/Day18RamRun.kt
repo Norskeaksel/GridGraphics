@@ -1,5 +1,7 @@
 package org.gridgraphics
 
+import graphClasses.BFS
+import graphClasses.Grid
 import javafx.application.Application
 import org.gridgraphics.AoCInput.CorruptingGrid
 

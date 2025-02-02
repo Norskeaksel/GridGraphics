@@ -1,4 +1,7 @@
-package org.gridgraphics
+package graphClasses
+
+import org.gridgraphics.Edge
+import org.gridgraphics.adjacencyListInit
 
 data class Tile(val x: Int, val y: Int, var data: Any? = null)
 

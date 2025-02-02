@@ -1,5 +1,8 @@
 package org.gridgraphics
 
+import graphClasses.BFS
+import graphClasses.Grid
+import graphClasses.Tile
 import javafx.application.Application
 import org.gridgraphics.AoCInput.ShadowGrid
 

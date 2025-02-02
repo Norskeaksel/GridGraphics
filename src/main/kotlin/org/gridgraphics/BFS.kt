@@ -1,4 +1,6 @@
-package org.gridgraphics
+package graphClasses
+
+import org.gridgraphics.AdjacencyList
 
 class BFS (val graph: AdjacencyList) {
     constructor(grid: Grid) : this(grid.getAdjacencyList())
