@@ -2,6 +2,7 @@ package org.gridgraphics
 
 import graphClasses.BFS
 import graphClasses.Grid
+import graphClasses.getPath
 import javafx.application.Application
 import org.gridgraphics.AoCInput.CorruptingGrid
 
