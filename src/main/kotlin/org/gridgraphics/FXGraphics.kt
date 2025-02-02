@@ -24,10 +24,11 @@ class FXGraphics : Application() {
         var finalPath = listOf<Int>()
         var animationTimeOverride: Double = 300.0
         var closeOnEnd = false
+        var sceneWithOverride: Double? = null
     }
 
     var animationKeyFrameTime = Duration.millis(min(animationTimeOverride, 10_000.0 / visitedNodes.size))
-    val sceneWith = 2000.0
+    val sceneWith = sceneWithOverride ?: 1000.0
     val sceneHeight = 1000.0
     val canvas = Canvas(sceneWith, sceneHeight)
     val gc = canvas.graphicsContext2D

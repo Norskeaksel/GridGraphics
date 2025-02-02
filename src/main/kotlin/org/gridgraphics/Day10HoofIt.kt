@@ -6,7 +6,7 @@ import javafx.application.Application
 import org.gridgraphics.AoCInput.UphillGrids
 
 fun main() {
-    val grid = Grid(UphillGrids.trueInput)
+    val grid = Grid(UphillGrids.example1)
     grid.print()
     grid.getNodes().forEach { t ->
         grid.getStraightNeighbours(t).forEach { n ->

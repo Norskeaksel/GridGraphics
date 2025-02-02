@@ -8,9 +8,9 @@ import javafx.application.Application
 import org.gridgraphics.AoCInput.ShadowGrid
 
 fun main() {
-    val fairTime = 9412 // 84, 9412
-    val cheatGoal = 100 // 30, 100
-    val input = ShadowGrid.trueInput
+    val fairTime = 84 // 84, 9412
+    val cheatGoal = 30 // 30, 100
+    val input = ShadowGrid.example
     val shadowGrid = input.map { it + it }
     val grid = Grid(shadowGrid)
     grid.print()
@@ -42,5 +42,6 @@ fun main() {
     FXGraphics.visitedNodes = bfs.currentVisited
     FXGraphics.nodeDistances = bfs.currentVisitedDistances
     FXGraphics.finalPath = getPath(endId, bfs.parent)
+    FXGraphics.sceneWithOverride = 2000.0
     Application.launch(FXGraphics()::class.java)
 }
