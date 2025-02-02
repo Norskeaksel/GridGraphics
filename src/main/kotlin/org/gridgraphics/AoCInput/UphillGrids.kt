@@ -1,7 +1,7 @@
 package org.gridgraphics.AoCInput
 
 object UphillGrids {
-    val example1 = """
+    val example2 = """
         ...0...
         ...1...
         ...2...
@@ -9,15 +9,11 @@ object UphillGrids {
         7.....7
         8.....8
         9.....9""".trimIndent().lines()
-    val example2 = """
-        89010123
-        78121874
-        87430965
-        96549874
-        45678903
-        32019012
-        01329801
-        10456732""".trimIndent().lines()
+    val example1 = """
+        0123
+        1234
+        8765
+        9876""".trimIndent().lines()
     val trueInput = """
         18776569014346783430321009012345676543089876765012101843210
         09683458723454894321234218987432189452176769854323678956521
