@@ -1,9 +1,10 @@
-package org.gridgraphics
+package org.gridgraphics.AoCDays
 
 import graphClasses.DFS
 import graphClasses.Grid
 import javafx.application.Application
 import org.gridgraphics.AoCInput.UphillGrids
+import org.gridgraphics.FXGraphics
 
 fun main() {
     val grid = Grid(UphillGrids.trueInput)

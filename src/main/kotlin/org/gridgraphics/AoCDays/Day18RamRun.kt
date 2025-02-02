@@ -1,10 +1,11 @@
-package org.gridgraphics
+package org.gridgraphics.AoCDays
 
 import graphClasses.BFS
 import graphClasses.Grid
 import graphClasses.getPath
 import javafx.application.Application
 import org.gridgraphics.AoCInput.CorruptingGrid
+import org.gridgraphics.FXGraphics
 
 fun main(){
     val gridSize = 71

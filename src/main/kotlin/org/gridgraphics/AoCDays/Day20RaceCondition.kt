@@ -1,4 +1,4 @@
-package org.gridgraphics
+package org.gridgraphics.AoCDays
 
 import graphClasses.BFS
 import graphClasses.Grid
@@ -6,6 +6,7 @@ import graphClasses.Tile
 import graphClasses.getPath
 import javafx.application.Application
 import org.gridgraphics.AoCInput.ShadowGrid
+import org.gridgraphics.FXGraphics
 
 fun main() {
     val fairTime = 84 // 84, 9412
