@@ -23,7 +23,6 @@ fun main() {
     }
 
     grid.connectGrid(::getShadowNeighbours)
-    FXGraphics.grid = grid
     val startId = grid.nodes.indexOfFirst { it?.data == 'S' }
     val endId = grid.nodes.indexOfLast { it?.data == 'E' }
 
@@ -40,6 +39,7 @@ fun main() {
         grid.removeCheatPath(getPath(endId, bfs.parent))
     }
     println(c)
+    FXGraphics.grid = grid
     FXGraphics.visitedNodes = bfs.currentVisited
     FXGraphics.nodeDistances = bfs.currentVisitedDistances
     FXGraphics.finalPath = getPath(endId, bfs.parent)
