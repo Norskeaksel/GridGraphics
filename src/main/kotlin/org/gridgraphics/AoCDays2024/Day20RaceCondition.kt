@@ -1,11 +1,11 @@
-package org.gridgraphics.AoCDays
+package org.gridgraphics.AoCDays2024
 
 import graphClasses.BFS
 import graphClasses.Grid
 import graphClasses.Tile
 import graphClasses.getPath
 import javafx.application.Application
-import org.gridgraphics.AoCInput.ShadowGrid
+import org.gridgraphics.AoCInput2024.ShadowGrid
 import org.gridgraphics.FXGraphics
 
 fun main() {

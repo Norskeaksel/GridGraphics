@@ -1,10 +1,10 @@
-package org.gridgraphics.AoCDays
+package org.gridgraphics.AoCDays2024
 
 import graphClasses.BFS
 import graphClasses.Grid
 import graphClasses.getPath
 import javafx.application.Application
-import org.gridgraphics.AoCInput.CorruptingGrid
+import org.gridgraphics.AoCInput2024.CorruptingGrid
 import org.gridgraphics.FXGraphics
 
 fun main(){

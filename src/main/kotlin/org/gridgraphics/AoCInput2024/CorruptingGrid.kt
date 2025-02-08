@@ -1,4 +1,4 @@
-package org.gridgraphics.AoCInput
+package org.gridgraphics.AoCInput2024
 
 object CorruptingGrid {
     val example = """

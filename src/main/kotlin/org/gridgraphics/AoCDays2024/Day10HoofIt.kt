@@ -1,9 +1,9 @@
-package org.gridgraphics.AoCDays
+package org.gridgraphics.AoCDays2024
 
 import graphClasses.DFS
 import graphClasses.Grid
 import javafx.application.Application
-import org.gridgraphics.AoCInput.UphillGrids
+import org.gridgraphics.AoCInput2024.UphillGrids
 import org.gridgraphics.FXGraphics
 
 fun main() {
