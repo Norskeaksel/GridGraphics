@@ -13,7 +13,6 @@ import javafx.scene.input.KeyCode
 import javafx.scene.paint.Color
 import javafx.stage.Stage
 import javafx.util.Duration
-import kotlin.math.min
 
 
 class FXGraphics : Application() {
@@ -22,13 +21,13 @@ class FXGraphics : Application() {
         var visitedNodes = listOf<Int>()
         var nodeDistances = listOf<Double>()
         var finalPath = listOf<Int>()
-        var animationTimeOverride: Double = 300.0
+        var animationTimeOverride: Double? = null
         var closeOnEnd = false
         var sceneWithOverride: Double? = null
         var windowTitle = "Grid visualizer (Click or space to pause and resume)"
     }
 
-    var animationKeyFrameTime = Duration.millis(min(animationTimeOverride, 10_000.0 / visitedNodes.size))
+    var animationKeyFrameTime = Duration.millis(animationTimeOverride ?: (10_000.0 / visitedNodes.size))
     val sceneWith = sceneWithOverride ?: 1000.0
     val sceneHeight = 1000.0
     val canvas = Canvas(sceneWith, sceneHeight)
