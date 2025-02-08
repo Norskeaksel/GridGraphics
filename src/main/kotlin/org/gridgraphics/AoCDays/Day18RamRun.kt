@@ -26,6 +26,6 @@ fun main(){
     FXGraphics.grid = grid
     FXGraphics.visitedNodes = bfs.currentVisited
     FXGraphics.nodeDistances = bfs.currentVisitedDistances
-    FXGraphics.finalPath = getPath(grid.xy2Id(gridSize - 1, gridSize - 1), bfs.parent)
+    FXGraphics.finalPath = getPath(grid.xy2Id(gridSize - 1, gridSize - 1), bfs.parents)
     Application.launch(FXGraphics()::class.java)
 }

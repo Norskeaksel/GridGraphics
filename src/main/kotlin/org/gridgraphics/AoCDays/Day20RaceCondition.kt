@@ -36,13 +36,13 @@ fun main() {
         val cheatDist = bfs.distances[endId]
         timeSaved = (fairTime - cheatDist)
         println("timeSaved: $timeSaved")
-        grid.removeCheatPath(getPath(endId, bfs.parent))
+        grid.removeCheatPath(getPath(endId, bfs.parents))
     }
     println(c)
     FXGraphics.grid = grid
     FXGraphics.visitedNodes = bfs.currentVisited
     FXGraphics.nodeDistances = bfs.currentVisitedDistances
-    FXGraphics.finalPath = getPath(endId, bfs.parent)
+    FXGraphics.finalPath = getPath(endId, bfs.parents)
     FXGraphics.sceneWithOverride = 2000.0
     Application.launch(FXGraphics()::class.java)
 }
