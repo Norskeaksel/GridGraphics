@@ -26,6 +26,6 @@ fun main() {
     println(ans)
     FXGraphics.grid = grid
     FXGraphics.visitedNodes = visitedNodes
-    FXGraphics.nodeDistances = grid.ids2Nodes(visitedNodes).map { it.data.toString().toInt() }
+    FXGraphics.nodeDistances = grid.ids2Nodes(visitedNodes).map { it.data.toString().toDouble() }
     Application.launch(FXGraphics()::class.java)
 }

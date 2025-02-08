@@ -34,7 +34,7 @@ fun main() {
         c++
         bfs.bfsIterative(listOf(startId))
         val cheatDist = bfs.distances[endId]
-        timeSaved = (fairTime - cheatDist)
+        timeSaved = (fairTime - cheatDist).toInt()
         println("timeSaved: $timeSaved")
         grid.removeCheatPath(getPath(endId, bfs.parents))
     }

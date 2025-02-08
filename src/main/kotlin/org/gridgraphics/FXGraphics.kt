@@ -20,11 +20,12 @@ class FXGraphics : Application() {
     companion object {
         var grid = Grid(0, 0)
         var visitedNodes = listOf<Int>()
-        var nodeDistances = listOf<Int>()
+        var nodeDistances = listOf<Double>()
         var finalPath = listOf<Int>()
         var animationTimeOverride: Double = 300.0
         var closeOnEnd = false
         var sceneWithOverride: Double? = null
+        var windowTitle = "Grid visualizer (Click or space to pause and resume)"
     }
 
     var animationKeyFrameTime = Duration.millis(min(animationTimeOverride, 10_000.0 / visitedNodes.size))
@@ -37,7 +38,7 @@ class FXGraphics : Application() {
     val minEdgeLength = xNodes.coerceAtMost(yNodes)
 
     override fun start(primaryStage: Stage) {
-        primaryStage.title = "Drawing Operations Test"
+        primaryStage.title = windowTitle
         val root = Group()
         gc.fill = Color.BLACK
         grid.getNodes().forEach { node ->
@@ -59,9 +60,9 @@ class FXGraphics : Application() {
         val scene = stage.scene
         val timeline = Timeline()
         println("animationKeyFrameTime: $animationKeyFrameTime")
-        val maxDepth = nodeDistances.maxOrNull()?.toDouble() ?: 0.0
+        val maxDepth = nodeDistances.maxOrNull()?.toDouble() ?: 1.0
         visitedNodes.forEachIndexed { i, nodeId ->
-            val color = getInterpolatedColor(nodeDistances[i].toDouble(), maxDepth)
+            val color = getInterpolatedColor((nodeDistances.getOrNull(i) ?: 0).toDouble(), maxDepth)
             val keyFrame = KeyFrame(
                 animationKeyFrameTime.multiply(i.toDouble()), squareDrawer(
                     nodeId, color
