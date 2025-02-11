@@ -10,12 +10,11 @@ import org.gridgraphics.FXGraphics
 
 fun main() {
     val fairTime = 84 // 84, 9412
-    val cheatGoal = 30 // 30, 100
+    val cheatGoal = 30 // 30, 100, 50
     val input = ShadowGrid.example
     val shadowGrid = input.map { it + it }
     val grid = Grid(shadowGrid)
     grid.print()
-
     fun getShadowNeighbours(t: Tile) = grid.getStraightNeighbours(t).mapNotNull {
         if (it.data != '#') it
         else if (t.x < grid.width / 2) grid.xy2Node(it.x + grid.width / 2, it.y)
@@ -30,15 +29,16 @@ fun main() {
     var c = -1
     var bfs = BFS(grid)
     while (timeSaved >= cheatGoal) {
-        bfs = BFS(grid)
         c++
-        bfs.bfsIterative(listOf(startId))
+        bfs = BFS(grid)
+        bfs.bfsIterative(startId)
         val cheatDist = bfs.distances[endId]
         timeSaved = (fairTime - cheatDist).toInt()
-        println("timeSaved: $timeSaved")
-        grid.removeCheatPath(getPath(endId, bfs.parents))
+        println("There is one cheat that saves $timeSaved picoseconds.")
+        val path = getPath(endId, bfs.parents)
+        grid.removeCheatPath(path)
     }
-    println(c)
+    println("Cheets: $c")
     FXGraphics.grid = grid
     FXGraphics.visitedNodes = bfs.currentVisited
     FXGraphics.nodeDistances = bfs.currentVisitedDistances

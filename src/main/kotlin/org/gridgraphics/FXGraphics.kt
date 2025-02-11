@@ -92,7 +92,7 @@ class FXGraphics : Application() {
         }
 
         scene.setOnMouseClicked {
-            toggleAnimation(timeline) // Pause/Resume on mouse click or space
+            toggleAnimation(timeline)
         }
     }
 
