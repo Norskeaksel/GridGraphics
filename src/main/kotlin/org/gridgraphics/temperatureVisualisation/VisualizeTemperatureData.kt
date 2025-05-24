@@ -1,12 +1,13 @@
-package org.gridgraphics
+package org.gridgraphics.temperatureVisualisation
 
 import graphClasses.Grid
 import javafx.application.Application
+import org.gridgraphics.FXGraphics
 import java.io.File
 
 fun main() {
     // Source: https://seklima.met.no/
-    val path = "src/main/kotlin/org/gridgraphics/TemperatureData/OsloTromsoTemperatures2024.csv"
+    val path = "src/main/kotlin/org/gridgraphics/temperatureVisualisation/TemperatureData/OsloTromsoTemperatures2024.csv"
     // Read the data from the csv file
     val csvFile = File(path)
     val grid = Grid(31, 25)
