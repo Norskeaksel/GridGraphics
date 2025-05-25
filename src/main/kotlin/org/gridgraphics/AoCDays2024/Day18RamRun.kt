@@ -4,7 +4,7 @@ import graphClasses.BFS
 import graphClasses.Grid
 import graphClasses.getPath
 import javafx.application.Application
-import org.gridgraphics.AoCInput2024.CorruptingGrid
+import org.gridgraphics.AoCDays2024.AoCInput2024.CorruptingGrid
 import org.gridgraphics.FXGraphics
 
 fun main(){
@@ -27,5 +27,6 @@ fun main(){
     FXGraphics.visitedNodes = bfs.currentVisited
     FXGraphics.nodeDistances = bfs.currentVisitedDistances
     FXGraphics.finalPath = getPath(grid.xy2Id(gridSize - 1, gridSize - 1), bfs.parents)
+    FXGraphics.startPaused = true
     Application.launch(FXGraphics()::class.java)
 }

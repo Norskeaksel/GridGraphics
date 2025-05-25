@@ -3,11 +3,11 @@ package org.gridgraphics.AoCDays2024
 import graphClasses.DFS
 import graphClasses.Grid
 import javafx.application.Application
-import org.gridgraphics.AoCInput2024.UphillGrids
+import org.gridgraphics.AoCDays2024.AoCInput2024.UphillGrids
 import org.gridgraphics.FXGraphics
 
 fun main() {
-    val grid = Grid(UphillGrids.trueInput)
+    val grid = Grid(UphillGrids.example1)
     grid.print()
     grid.getNodes().forEach { t ->
         grid.getStraightNeighbours(t).forEach { n ->
@@ -27,5 +27,6 @@ fun main() {
     FXGraphics.grid = grid
     FXGraphics.visitedNodes = visitedNodes
     FXGraphics.nodeDistances = grid.ids2Nodes(visitedNodes).map { it.data.toString().toDouble() }
+    FXGraphics.startPaused = true
     Application.launch(FXGraphics()::class.java)
 }

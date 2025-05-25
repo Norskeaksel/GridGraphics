@@ -5,7 +5,7 @@ import graphClasses.Grid
 import graphClasses.Tile
 import graphClasses.getPath
 import javafx.application.Application
-import org.gridgraphics.AoCInput2024.ShadowGrid
+import org.gridgraphics.AoCDays2024.AoCInput2024.ShadowGrid
 import org.gridgraphics.FXGraphics
 
 fun main() {
@@ -44,5 +44,6 @@ fun main() {
     FXGraphics.nodeDistances = bfs.currentVisitedDistances
     FXGraphics.finalPath = getPath(endId, bfs.parents)
     FXGraphics.sceneWithOverride = 2000.0
+    FXGraphics.startPaused = true
     Application.launch(FXGraphics()::class.java)
 }

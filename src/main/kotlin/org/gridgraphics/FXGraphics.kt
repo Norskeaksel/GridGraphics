@@ -25,6 +25,7 @@ class FXGraphics : Application() {
         var closeOnEnd = false
         var sceneWithOverride: Double? = null
         var windowTitle = "Grid visualizer (Click or space to pause and resume)"
+        var startPaused = false
     }
 
     var animationKeyFrameTime = Duration.millis(animationTimeOverride ?: (10_000.0 / visitedNodes.size))
@@ -54,7 +55,7 @@ class FXGraphics : Application() {
         gc.fillRect(x * minEdgeLength, y * minEdgeLength, minEdgeLength - 1, minEdgeLength - 1)
     }
 
-    private var isPaused = false
+    private var isPaused = startPaused
     private fun animateVisitedNodes(stage: Stage) {
         val scene = stage.scene
         val timeline = Timeline()
@@ -84,7 +85,9 @@ class FXGraphics : Application() {
         }
         val pause = PauseTransition(Duration.seconds(.5))
         pause.setOnFinished { timeline.play() }
-        pause.play()
+        if (!startPaused)
+            pause.play()
+
         scene.setOnKeyPressed { event ->
             if (event.code == KeyCode.SPACE) {
                 toggleAnimation(timeline)

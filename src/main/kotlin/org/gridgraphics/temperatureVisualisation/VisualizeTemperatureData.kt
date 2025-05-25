@@ -36,5 +36,6 @@ fun main() {
     FXGraphics.visitedNodes = visitedIds
     FXGraphics.nodeDistances = normalizedTemps
     FXGraphics.windowTitle = "Normalized temperatures in Oslo vs Tromsø, 2024"
+    FXGraphics.startPaused = true
     Application.launch(FXGraphics()::class.java)
 }
